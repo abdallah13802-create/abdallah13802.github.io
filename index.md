@@ -12,8 +12,8 @@ My goal is to build clean, functional data pipelines—taking messy, fragmented 
 
 ## Project: Orange County Income Distribution Map — Geospatial Demographics Analysis
 
+<img width="2402" height="1274" alt="OC-wealth- distrubution  " src="https://github.com/user-attachments/assets/71132ebe-8860-41b0-b651-da0703cff921" />
 
-![Uploading OC-wealth- distrubution. .png…]()
 
 **Technologies Used:** QGIS, SQL, US Census Bureau APIs, TIGER/Line Geometry Architecture, String Regex Engineering
 
