@@ -65,18 +65,14 @@ Government databases are notoriously fragmented. This project encountered severa
 ### 💡 Technical Solutions
 
 **Phase 1 — Column Injection**
-Injected a custom zip code column using:
-` right("Geography", 5) `
-Stripped text prefixes (e.g. "ZCTA5 92657" → "92657") and enforced string datatype for leading-zero integrity.
-
-Stripped text prefixes and enforced string datatype for leading-zero integrity.
+Injected a custom zip code column using `right("Geography", 5)` to strip text prefixes (e.g. "ZCTA5 92657" → "92657") and enforce string datatype for leading-zero integrity.
 
 **Phase 2 — Relational Spatial Join**
 Mapped the engineered zip code key to the shapefile's native `ZCTA5CE20` field, suppressing default prefix naming for clean output.
 
 **Phase 3 — SQL Scope Filtering**
 Isolated Orange County using:
-Reduced geometry processing overhead by over 90%.
+"ZCTA5CE20" >= '92600' AND "ZCTA5CE20" <= '92899'
 
 **Phase 4 — Cartographic Optimization**
 - Equal Count Quantile classification across 5 income tiers
