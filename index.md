@@ -57,3 +57,24 @@ income across 84 Orange County zip codes, revealing:
 - Lower income zones: Santa Ana, Anaheim western corridors ($17k-$63k)
 - Clear geographic pattern: income increases moving inland 
   from coastal Santa Ana toward Irvine/Mission Viejo corridor
+
+
+  ## Key Findings
+
+- **Highest income zones:** Irvine, Newport Beach, Mission Viejo ($127k–$240k)
+- **Lower income zones:** Santa Ana, western Anaheim corridors ($17k–$63k)
+- **Clear geographic pattern:** Income increases moving southeast 
+  from the Santa Ana urban core toward the Irvine/Mission Viejo corridor
+- **84 zip codes** analyzed across Orange County
+
+## Business Application
+
+This map directly supports Meta advertising strategy by identifying 
+premium zip codes for high-value service business targeting. 
+Zones in the $100k+ income tier represent the highest-value 
+audiences for local service businesses.
+
+## Data Sources
+
+- US Census Bureau TIGER/Line Shapefiles 2023
+- American Community Survey (ACS) 5-Year Estimates 2023, Table S1901
