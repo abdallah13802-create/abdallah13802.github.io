@@ -12,6 +12,9 @@ My goal is to build clean, functional data pipelines—taking messy, fragmented 
 
 ## Project: Orange County Income Distribution Map — Geospatial Demographics Analysis
 
+
+![Uploading OC-wealth- distrubution. .png…]()
+
 **Technologies Used:** QGIS, SQL, US Census Bureau APIs, TIGER/Line Geometry Architecture, String Regex Engineering
 
 ### 🛠️ The Objective
