@@ -3,78 +3,102 @@
 
 I am an accelerated Data Science student at Arizona State University with a practical background in media buying and digital advertising. Instead of looking at data purely in spreadsheets, I am interested in how spatial data and GIS tools can be used to understand target audiences and regional demographics.
 
-My goal is to build clean, functional data pipelines—taking messy, fragmented public datasets (like the US Census) and transforming them into clear visual maps that can guide real-world business and marketing decisions.
+My goal is to build clean, functional data pipelines — taking messy, fragmented public datasets (like the US Census) and transforming them into clear visual maps that can guide real-world business and marketing decisions.
 
-* **Skills I'm Developing:** Relational Data Joining, Data Cleaning & Text Manipulation, Basic SQL Query Filtering, Demographic Audience Segmentation.
-* **Tools I Use:** QGIS, SQL (Basic Expressions), Python, GitHub.
+- **Skills I'm Developing:** Relational Data Joining, Data Cleaning & Text Manipulation, Basic SQL Query Filtering, Demographic Audience Segmentation
+- **Tools I Use:** QGIS, SQL, Python, GitHub
 
 ---
 
-## Project: Orange County Income Distribution Map — Geospatial Demographics Analysis
+## Project 1: Orange County Income Distribution Map
+### Geospatial Demographics Analysis
 
-<img width="2402" height="1274" alt="OC-wealth- distrubution  " src="https://github.com/user-attachments/assets/71132ebe-8860-41b0-b651-da0703cff921" />
+**Technologies Used:** QGIS, SQL, US Census Bureau APIs, TIGER/Line Shapefiles, String Regex Engineering
 
+---
 
-**Technologies Used:** QGIS, SQL, US Census Bureau APIs, TIGER/Line Geometry Architecture, String Regex Engineering
+### 🎯 Objective
+Engineer a highly localized demographic heat map of Orange County, California, isolating median household income distributions by Zip Code Tabulation Areas (ZCTAs). This asset provides geographic intelligence for target market penetration and regional demographic analysis.
 
-### 🛠️ The Objective
-The goal was to engineer a highly localized demographic heatmap of **Orange County, California**, isolating median household income distributions by Zip Code Tabular Areas (ZCTAs). This asset provides geographic intelligence for target market penetration and regional demographic analysis.
+---
 
-### 🛑 The Core Engineering Challenges
-While matching datasets sounds trivial, government databases are notoriously fragmented. The project encountered several data architecture barriers requiring custom overrides:
+### 🔄 Step-by-Step Process
 
-1. **Missing Schema Keys:** The raw US Census Bureau ACS table lacked a dedicated, normalized 5-digit zip code column required to link with standard US TIGER geometry layers.
-2. **Type-Mismatch Incompatibilities:** The map layer expected a strict Text (String) datatype handshake, whereas standard spreadsheet parsers often read numeric IDs as raw integers, stripping critical leading zeros.
-3. **Bloated String Descriptions:** The available geographic anchor row was locked inside descriptive text strings format: `"ZCTA5 92657"`.
-4. **Geographic Noise:** The source dataset pulled records globally for the entire state of California, creating heavy rendering payloads and distorting regional classification scales.
+#### Step 1 — Loading Raw Geographic Boundaries
+Loaded the US Census TIGER/Line shapefile containing all California zip code boundaries into QGIS, then filtered to Orange County using a SQL expression targeting 84 zip codes.
 
-### 💡 Technical Solutions & Implementation Pipeline
+<img width="840" height="638" alt="step1_raw_boundaries" src="https://github.com/user-attachments/assets/a096c4a8-54a5-4a05-8d29-063c8014c21e" />
 
-#### Phase 1: Dynamic Data Parsing & Column Injection
-To build a stable bridge without altering the master database immutable layer, I injected a custom virtual data column into the tabular metadata table using this localized string manipulation architecture:
-`right("Geography", 5)`
+---
 
-* **Impact:** Dynamically stripped away text descriptions (e.g., `"ZCTA5 92657"` -> `'92657'`) and explicitly enforced a **Text (string)** database type to ensure flawless leading-zero integrity and strict type-matching with the geometric vector targets.
+#### Step 2 — Joining Income Data
+Census ACS income data was joined to the shapefile using a custom engineered ZIPCODE key extracted from the NAME field using `right("Geography", 5)`. The attribute table below shows income values successfully attached to each zip code geometry.
 
-#### Phase 2: Relational Spatial Joining
-With matching key datatypes established, I executed a vector layer handshake mapping the newly engineered virtual zipcode key directly to the map's native `ZCTA5CE20` identifier array. I suppressed default database schema naming prefixes to keep downstream query calls clean and human-readable.
+<img width="1512" height="961" alt="step2_attribute_table" src="https://github.com/user-attachments/assets/6f7d9a24-0077-4360-81aa-d473c824fa63" />
 
-#### Phase 3: High-Performance SQL Scope Filtering
-To isolate Orange County and drop processing overhead for the remaining thousands of California sectors, I wrote a bounded SQL bounding-box expression directly into the provider feature filter backend:
-`"ZCTA5CE20" >= '92600' AND "ZCTA5CE20" <= '92899'`
+---
 
-* **Impact:** Reduced geometry calculation overhead by over 90%, instantly isolating the target study region.
+#### Step 3 — Graduated Color Classification
+Applied Equal Count (Quantile) classification across 5 income tiers using a white-to-red color ramp. Used `to_real()` typecasting to convert string income values to numeric for classification.
 
-#### Phase 4: Cartographic Optimization & Data Cleansing
-* **Classification:** Applied an **Equal Count (Quantile)** mathematical distribution curve across 5 distinct income classes to eliminate outlier distortion and clearly emphasize localized purchasing power tiers.
-* **Value Conversion:** Handled string-to-integer conversion on the fly using programmatic typecasting expressions: `to_int("Estimate!!Households!!Median income (dollars)")`.
-* **Handling Nulls/Suppressed Data:** Identified census data omissions (e.g., zero-population or suppressed tracking sectors like Laguna Beach *92651*). Instead of leaving glaring white holes that imply map rendering errors, I implemented a custom alpha-transparency rule (`0% opacity`), turning data gaps into elegant, non-intrusive transparent voids showing the underlying Google Satellite raster basemap.
+<img width="856" height="804" alt="step3_symbology" src="https://github.com/user-attachments/assets/528491bd-4543-47dd-afc7-1fff6725c9c8" />
 
-## Results
-The final map successfully visualized median household 
-income across 84 Orange County zip codes, revealing:
-- Highest income zones: Irvine, Newport Beach, Laguna Hills ($127k-$240k)
-- Lower income zones: Santa Ana, Anaheim western corridors ($17k-$63k)
-- Clear geographic pattern: income increases moving inland 
-  from coastal Santa Ana toward Irvine/Mission Viejo corridor
+---
 
+### 🗺️ Final Output
 
-  ## Key Findings
+<img width="2402" height="1274" alt="OC-wealth- distrubution  " src="https://github.com/user-attachments/assets/2152526a-c047-4563-ae52-1c9eecea1296" />
+
+---
+
+### 🛑 Core Engineering Challenges
+
+Government databases are notoriously fragmented. This project encountered several data architecture barriers:
+
+1. **Missing Schema Keys:** The Census ACS table lacked a normalized 5-digit zip code column to link with TIGER geometry layers
+2. **Type-Mismatch Incompatibilities:** Spreadsheet parsers read numeric IDs as integers, stripping leading zeros
+3. **Bloated String Descriptions:** Geographic anchor field was locked in format `"ZCTA5 92657"` instead of `"92657"`
+4. **Geographic Noise:** Dataset covered all of California, creating heavy rendering overhead
+
+---
+
+### 💡 Technical Solutions
+
+**Phase 1 — Column Injection**
+Injected a custom zip code column using:<img width="840" height="638" alt="step1_raw_boundaries" src="https://github.com/user-attachments/assets/8cbdb5d9-f315-4248-adbf-9a5043487387" />
+
+Stripped text prefixes and enforced string datatype for leading-zero integrity.
+
+**Phase 2 — Relational Spatial Join**
+Mapped the engineered zip code key to the shapefile's native `ZCTA5CE20` field, suppressing default prefix naming for clean output.
+
+**Phase 3 — SQL Scope Filtering**
+Isolated Orange County using:
+Reduced geometry processing overhead by over 90%.
+
+**Phase 4 — Cartographic Optimization**
+- Equal Count Quantile classification across 5 income tiers
+- `to_real()` typecasting for numeric conversion
+- Null/suppressed zones handled with 0% opacity transparency
+
+---
+
+### 📊 Key Findings
 
 - **Highest income zones:** Irvine, Newport Beach, Mission Viejo ($127k–$240k)
 - **Lower income zones:** Santa Ana, western Anaheim corridors ($17k–$63k)
-- **Clear geographic pattern:** Income increases moving southeast 
-  from the Santa Ana urban core toward the Irvine/Mission Viejo corridor
+- **Clear pattern:** Income increases moving southeast from the Santa Ana urban core toward the Irvine/Mission Viejo corridor
 - **84 zip codes** analyzed across Orange County
 
-## Business Application
+---
 
-This map directly supports Meta advertising strategy by identifying 
-premium zip codes for high-value service business targeting. 
-Zones in the $100k+ income tier represent the highest-value 
-audiences for local service businesses.
+### 💼 Business Application
 
-## Data Sources
+This map directly supports Meta advertising strategy by identifying premium zip codes for high-value service business targeting. Zip codes in the $100k+ income tier represent the highest-value audiences for local service businesses in Orange County.
+
+---
+
+### 📁 Data Sources
 
 - US Census Bureau TIGER/Line Shapefiles 2023
 - American Community Survey (ACS) 5-Year Estimates 2023, Table S1901
