@@ -46,3 +46,11 @@ To isolate Orange County and drop processing overhead for the remaining thousand
 * **Classification:** Applied an **Equal Count (Quantile)** mathematical distribution curve across 5 distinct income classes to eliminate outlier distortion and clearly emphasize localized purchasing power tiers.
 * **Value Conversion:** Handled string-to-integer conversion on the fly using programmatic typecasting expressions: `to_int("Estimate!!Households!!Median income (dollars)")`.
 * **Handling Nulls/Suppressed Data:** Identified census data omissions (e.g., zero-population or suppressed tracking sectors like Laguna Beach *92651*). Instead of leaving glaring white holes that imply map rendering errors, I implemented a custom alpha-transparency rule (`0% opacity`), turning data gaps into elegant, non-intrusive transparent voids showing the underlying Google Satellite raster basemap.
+
+## Results
+The final map successfully visualized median household 
+income across 84 Orange County zip codes, revealing:
+- Highest income zones: Irvine, Newport Beach, Laguna Hills ($127k-$240k)
+- Lower income zones: Santa Ana, Anaheim western corridors ($17k-$63k)
+- Clear geographic pattern: income increases moving inland 
+  from coastal Santa Ana toward Irvine/Mission Viejo corridor
