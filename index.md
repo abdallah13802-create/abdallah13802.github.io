@@ -10,7 +10,7 @@ My goal is to build clean, functional data pipelines—taking messy, fragmented 
 
 ---
 
-## Project: Optimizing Regional Wealth Intelligence via Spatial Data Handshaking
+## Project: Orange County Income Distribution Map — Geospatial Demographics Analysis
 
 **Technologies Used:** QGIS, SQL, US Census Bureau APIs, TIGER/Line Geometry Architecture, String Regex Engineering
 
