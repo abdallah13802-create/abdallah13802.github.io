@@ -65,7 +65,9 @@ Government databases are notoriously fragmented. This project encountered severa
 ### 💡 Technical Solutions
 
 **Phase 1 — Column Injection**
-Injected a custom zip code column using:<img width="840" height="638" alt="step1_raw_boundaries" src="https://github.com/user-attachments/assets/8cbdb5d9-f315-4248-adbf-9a5043487387" />
+Injected a custom zip code column using:
+` right("Geography", 5) `
+Stripped text prefixes (e.g. "ZCTA5 92657" → "92657") and enforced string datatype for leading-zero integrity.
 
 Stripped text prefixes and enforced string datatype for leading-zero integrity.
 
