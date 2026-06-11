@@ -7,10 +7,7 @@
 |---|---|---|---|
 | 1 | [🗺️ OC Income Heat Map](#project-1-orange-county-income-distribution-map) | Median household income by zip code | ✅ Complete |
 <a id="project-2-oc-competitor-location-mapping"></a>
-
-## Project 2: OC Competitor Location Mapping
-| 2 | [📍 OC Competitor Map](#project-2-oc-competitor-location-mapping) | Nail salon density vs income zones | ✅ Complete |
----
+| 2 | [📍 OC Competitor Map](#project-2-oc-competitor-location-mapping) | Nail salon density vs income zones | ✅ Complete |---
 ### Accelerated Data Science Student (ASU) & Media Buyer
 
 I am an accelerated Data Science student at Arizona State University with a practical background in media buying and digital advertising. Instead of looking at data purely in spreadsheets, I am interested in how spatial data and GIS tools can be used to understand target audiences and regional demographics.
