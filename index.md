@@ -110,3 +110,103 @@ This map directly supports Meta advertising strategy by identifying premium zip 
 
 - US Census Bureau TIGER/Line Shapefiles 2023
 - American Community Survey (ACS) 5-Year Estimates 2023, Table S1901
+
+
+
+
+
+
+
+---
+
+## Project 2: OC Competitor Location Mapping
+### Nail Salon Density vs Income Zones — Ad Targeting Intelligence
+
+**Technologies Used:** QGIS, OpenStreetMap, Overpass Turbo API, 
+Buffer Analysis, GeoJSON
+
+---
+
+### 🎯 Objective
+Identify high-income zip codes in Orange County with low nail 
+salon competitor density — pinpointing the highest-value 
+geographic zones for local service business advertising on Meta.
+
+> *"Where is there money but no competition?"*
+
+---
+
+### 📂 Data Sources
+- **Competitor locations:** OpenStreetMap via Overpass Turbo API
+- **Income zones:** Project 1 (US Census ACS 2023)
+- **Zip code boundaries:** US Census TIGER/Line 2023
+
+---
+
+### 🔄 Step-by-Step Process
+
+#### Step 1 — Extracting Business Location Data
+Queried OpenStreetMap via Overpass Turbo API to pull all 
+beauty salons and nail spas within Orange County. 
+Exported as GeoJSON and loaded into QGIS as a point layer.
+
+<img width="1512" height="799" alt="overpass-query-screenshot" src="https://github.com/user-attachments/assets/6aeafd4a-574f-4836-910d-34511e1899e1" />
+
+---
+
+#### Step 2 — Overlaying Competitors on Income Map
+Loaded competitor points on top of the Project 1 income 
+heat map. Each gray dot represents one nail salon or 
+beauty business location.
+
+<img width="938" height="641" alt="oc-market-proximity-analysis" src="https://github.com/user-attachments/assets/7e8255c3-1c61-42ef-aed5-30f095432fd9" />
+
+---
+
+#### Step 3 — Buffer Analysis
+Applied a 2-mile radius buffer around each business location 
+to visualize service coverage zones. Overlapping circles 
+reveal areas of high competitor saturation.
+
+**Saturated Zone — Northwest OC (Anaheim/Santa Ana)**
+High competition, lower income — avoid for premium targeting.
+
+<img width="814" height="642" alt="Screenshot 2026-06-11 at 13 45 32" src="https://github.com/user-attachments/assets/35fcde25-ee9d-4300-976a-40dcdf7c5e10" />
+
+---
+
+**Opportunity Zone — Southeast OC (Mission Viejo/Laguna Hills)**
+High income, minimal competitor presence — prime advertising zone.
+
+<img width="1015" height="637" alt="Screenshot 2026-06-11 at 13 45 18" src="https://github.com/user-attachments/assets/657f323e-eb14-469b-a11b-44f128c9e245" />
+
+---
+
+### 📊 Key Findings
+
+- **Most saturated zone:** Anaheim/Santa Ana corridor — 
+  heavily overlapping buffers, lower income
+- **Highest opportunity zone:** Mission Viejo/Laguna Hills — 
+  median income $127k–$240k with only 1 competitor within 
+  a 10-mile radius
+- **Strategic insight:** Southeast OC represents the highest 
+  ROI zone for premium nail spa advertising — high purchasing 
+  power, almost no local competition
+
+---
+
+### 💼 Business Application
+
+A nail spa running Meta ads in the Mission Viejo/Laguna Hills 
+corridor would face minimal local competition while reaching 
+households earning $127k–$240k annually. This geospatial 
+analysis transforms raw census and OpenStreetMap data into 
+a direct, actionable advertising strategy.
+
+---
+
+### 📁 Data Sources
+- OpenStreetMap contributors via Overpass Turbo API
+- US Census Bureau TIGER/Line Shapefiles 2023
+- American Community Survey (ACS) 5-Year Estimates 2023<img width="1512" height="799" alt="overpass-query-screenshot" src="https://github.com/user-attachments/assets/2e616add-61ed-416a-9cf5-6416d752fb68" />
+
