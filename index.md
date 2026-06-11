@@ -139,8 +139,7 @@ Identify high-income zip codes in Orange County with low nail
 salon competitor density — pinpointing the highest-value 
 geographic zones for local service business advertising on Meta.
 
-> *"Where is there money but no competition?"*
-
+> *"Where is there affluent purchasing power, but a complete structural gap in local competition?"*
 ---
 
 ### 📂 Data Sources
@@ -161,13 +160,12 @@ Exported as GeoJSON and loaded into QGIS as a point layer.
 
 ---
 
-#### Step 2 — Overlaying Competitors on Income Map
-Loaded competitor points on top of the Project 1 income 
-heat map. Each gray dot represents one nail salon or 
-beauty business location.
+##### Step 2 — Overcoming Proximity Translation Conflicts
+Initially, the project encountered an OGR database write error due to root-level Mac file pathway security. Upon bypassing, the spatial coordinate reference system (CRS) was reprojected from global degrees to local coordinates (**EPSG:2230 - NAD83 / California Zone 6**). This translated the map elements into standard local feet, unlocking native real-world mileage calculations.
 
 <img width="938" height="641" alt="oc-market-proximity-analysis" src="https://github.com/user-attachments/assets/7e8255c3-1c61-42ef-aed5-30f095432fd9" />
 
+*Figure 2: Clean projection of 655 beauty business locations overlaid onto the baseline Orange County household income matrix.*
 ---
 
 #### Step 3 — Buffer Analysis
