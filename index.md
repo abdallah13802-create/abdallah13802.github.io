@@ -213,5 +213,4 @@ a direct, actionable advertising strategy.
 ### 📁 Data Sources
 - OpenStreetMap contributors via Overpass Turbo API
 - US Census Bureau TIGER/Line Shapefiles 2023
-- American Community Survey (ACS) 5-Year Estimates 2023<img width="1512" height="799" alt="overpass-query-screenshot" src="https://github.com/user-attachments/assets/2e616add-61ed-416a-9cf5-6416d752fb68" />
-
+- American Community Survey (ACS) 5-Year Estimates 2023
