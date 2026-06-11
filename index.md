@@ -193,7 +193,7 @@ High income, minimal competitor presence — prime advertising zone.
   heavily overlapping buffers, lower income
 - **Highest opportunity zone:** Mission Viejo/Laguna Hills — 
   median income $127k–$240k with only 1 competitor within 
-  a 10-mile radius
+  a 2-mile radius
 - **Strategic insight:** Southeast OC represents the highest 
   ROI zone for premium nail spa advertising — high purchasing 
   power, almost no local competition
