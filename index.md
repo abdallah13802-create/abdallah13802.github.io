@@ -122,12 +122,11 @@ This map directly supports Meta advertising strategy by identifying premium zip 
 <br>
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 📍 PROJECT 2
+# 📍 PROJECT 2: OC Competitor Location Mapping
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <br>
 
-## Project 2: OC Competitor Location Mapping
 ### Nail Salon Density vs Income Zones — Ad Targeting Intelligence
 
 **Technologies Used:** QGIS, OpenStreetMap, Overpass Turbo API, 
