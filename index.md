@@ -1,14 +1,5 @@
 # Hi, I'm Abdallah
 ---
-
-## 🗂️ Projects
-
-| # | Project | Description | Status |
-|---|---|---|---|
-| 1 | [🗺️ OC Income Heat Map](#project-1-orange-county-income-distribution-map) | Median household income by zip code | ✅ Complete |
-| 2 | [📍 OC Competitor Map](#project-2) | Nail salon density vs income zones | ✅ Complete |
-| 3 | [🎯 Meta Ads Geo-Intelligence](#project-3-meta-ads-geo-intelligence-system) | Ad targeting system for 4 OC local service clients | ✅ Complete |
-
 ### Accelerated Data Science Student (ASU) & Media Buyer
 
 I am an accelerated Data Science student at Arizona State University with a practical background in media buying and digital advertising. Instead of looking at data purely in spreadsheets, I am interested in how spatial data and GIS tools can be used to understand target audiences and regional demographics.
@@ -18,6 +9,15 @@ My goal is to build clean, functional data pipelines — taking messy, fragmente
 - **Skills I'm Developing:** Relational Data Joining, Data Cleaning & Text Manipulation, Basic SQL Query Filtering, Demographic Audience Segmentation
 - **Tools I Use:** QGIS, SQL, Python, GitHub
 
+
+---
+## 🗂️ Projects
+
+| # | Project | Description | Status |
+|---|---|---|---|
+| 1 | [🗺️ OC Income Heat Map](#project-1-orange-county-income-distribution-map) | Median household income by zip code | ✅ Complete |
+| 2 | [📍 OC Competitor Map](#project-2) | Nail salon density vs income zones | ✅ Complete |
+| 3 | [🎯 Meta Ads Geo-Intelligence](#project-3-meta-ads-geo-intelligence-system) | Ad targeting system for 4 OC local service clients | ✅ Complete |
 ---
 
 ## Project 1: Orange County Income Distribution Map
