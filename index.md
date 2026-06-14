@@ -7,6 +7,7 @@
 |---|---|---|---|
 | 1 | [🗺️ OC Income Heat Map](#project-1-orange-county-income-distribution-map) | Median household income by zip code | ✅ Complete |
 | 2 | [📍 OC Competitor Map](#project-2) | Nail salon density vs income zones | ✅ Complete |
+| 3 | [🎯 Meta Ads Geo-Intelligence](#project-3-meta-ads-geo-intelligence-system) | Ad targeting system for 4 OC local service clients | ✅ Complete |
 
 ### Accelerated Data Science Student (ASU) & Media Buyer
 
