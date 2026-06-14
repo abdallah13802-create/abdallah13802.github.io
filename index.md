@@ -221,10 +221,14 @@ a direct, actionable advertising strategy.
 <a id="project-3-meta-ads-geo-intelligence-system"></a>
 
 ---
+<br>
 
-----------------------------------------------------
+<a id="project-2"></a>
+# -----------------------------------------------------------
 > # 🎯 PROJECT 3: Meta Ads Geo-Intelligence System
------------------------------------------------------
+# -----------------------------------------------------------
+
+<br>
 
 ## Project 3: Meta Ads Geo-Intelligence System
 ### Ad Targeting Intelligence for Local Service Businesses
