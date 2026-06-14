@@ -214,3 +214,150 @@ a direct, actionable advertising strategy.
 - OpenStreetMap contributors via Overpass Turbo API
 - US Census Bureau TIGER/Line Shapefiles 2023
 - American Community Survey (ACS) 5-Year Estimates 2023
+
+
+
+<a id="project-3-meta-ads-geo-intelligence-system"></a>
+
+---
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# 🎯 PROJECT 3:<img width="308" height="237" alt="p3_layers" src="https://github.com/user-attachments/assets/424cb5ef-54fd-4293-aa87-f7358c99988c" />
+ Meta Ads Geo-Intelligence System
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## Project 3: Meta Ads Geo-Intelligence System
+### Ad Targeting Intelligence for Local Service Businesses
+
+**Technologies Used:** QGIS, Python, US Census Bureau API, TIGER/Line Shapefiles, Buffer Analysis, GeoJSON, CSV Export
+
+---
+
+### 🎯 Objective
+Build a complete geospatial ad targeting intelligence system for 4 real local service business clients of Orange AdTech — located in Corona del Mar, Newport Beach, Coto de Caza, and Yorba Linda. Instead of guessing which zip codes to target on Meta, this system combines US Census income data, drive-time buffer analysis, and campaign performance metrics to produce a ranked targeting list ready to paste directly into Meta Ads Manager.
+
+> *"Don't guess where to run ads. Prove it with data."*
+
+---
+
+### 💼 Business Context
+As founder of Orange AdTech, I serve 4 local service business clients operating in Orange County's highest-opportunity zones. Each client is located in a premium income corridor — Corona del Mar ($198k), Newport Beach ($178k–$185k), Coto de Caza ($178k), and Yorba Linda ($118k–$128k).
+
+The buffer circles on the map represent each client's 30-minute drive-time service radius — the realistic zone within which their customers will travel. This constraint is critical: there is no point running Meta ads targeting zip codes 45 minutes away if customers won't make the drive.
+
+The geospatial analysis confirms what the income data suggests — all 4 client locations sit inside Orange County's highest-scoring opportunity zones.
+
+---
+
+### 🗂️ Project Layer Stack
+This project uses 6 layers working together in QGIS:
+
+<img width="308" height="237" alt="p3_layers" src="https://github.com/user-attachments/assets/303fcf2a-2582-49bc-a49a-9ec268184d61" />
+
+- **OC_Meta_Ads_Performance** — ad performance data by zip code
+- **Multi-ring buffer** — 30-minute drive-time radius per client
+- **Centroids** — client business location points
+- **OC_Top_Targeting_Zones** — final exported targeting list
+- **tl_2023_us_zcta520** — OC zip code boundaries
+- **Google Satellite** — basemap
+
+---
+
+### 📂 Data Sources
+
+| Data | Source | Format |
+|---|---|---|
+| Zip code boundaries | US Census TIGER/Line 2023 | Shapefile |
+| Income demographics | ACS 5-Year Estimates 2023 | CSV |
+| Ad performance metrics | Orange AdTech performance dataset | CSV |
+| Drive-time zones | Buffer analysis (QGIS) | Vector polygon |
+
+---
+
+### 🔄 Step-by-Step Process
+
+#### Step 1 — Joining Performance Data to Map
+Joined the ad performance CSV to the OC zip code shapefile using `ZIP_CODE` → `ZCTA5CE20` field matching. The attribute table below shows all performance metrics successfully attached to each zip code geometry — including CPL, ROAS, CTR, and composite Opportunity Score.
+
+<img width="1496" height="878" alt="p3_attribute_table" src="https://github.com/user-attachments/assets/c51ff48e-9b4d-4bfd-a075-5aec06da68e7" />
+
+---
+
+#### Step 2 — Opportunity Score Heat Map
+Applied Graduated symbology using the composite Opportunity Score field across 5 tiers. White = lowest opportunity (avoid), Dark Red = highest opportunity (prioritize). The score combines 3 variables:
+- Income level (40 points)
+- ROAS efficiency (40 points)
+- CPL cost-effectiveness (20 points)
+
+All 4 client locations — Corona del Mar, Newport Beach, Coto de Caza, and Yorba Linda — fall inside the dark red high-opportunity zones, confirming their locations are geographically optimal for Meta ad targeting.
+
+<img width="1180" height="642" alt="p3_opportunity_map" src="https://github.com/user-attachments/assets/fe0e0520-b7d7-4b2c-9981-578620bbbc4b" />
+
+---
+
+#### Step 3 — Drive-Time Buffer Analysis
+Generated multi-ring buffer zones around each of the 4 client business locations. The circles represent 5, 10, and 15-mile service radii — constraining the Meta ad targeting to only zip codes realistically within the client's service area.
+
+This is a critical business constraint: running ads outside the drive-time zone wastes budget on audiences who will never convert into actual customers.
+
+<img width="1208" height="670" alt="p3_buffer_map" src="https://github.com/user-attachments/assets/d0aaf324-81be-4eff-a46d-de4592bb91d0" />
+
+---
+
+#### Step 4 — Actionable CSV Export
+Exported the final ranked targeting list sorted by Opportunity Score descending. Each zip code is tagged META_ACTION: INCLUDE, REVIEW, or EXCLUDE — ready to paste directly into Meta Ads Manager geographic targeting settings.
+
+The top INCLUDE zones align perfectly with the 4 client locations — validating that their businesses are positioned in Orange County's highest-value advertising corridors.
+
+<img width="944" height="673" alt="p3_csv_export" src="https://github.com/user-attachments/assets/552ffeee-16c2-4a45-ba64-7f95312889ef" />
+
+---
+
+### 📊 Key Findings
+
+**Top 5 INCLUDE Zones — All Client Locations:**
+
+| City | Income | ROAS | CPL | Score | Action |
+|---|---|---|---|---|---|
+| Corona del Mar | $198k | 6.61x | $42 | 79.7 | ✅ INCLUDE |
+| Newport Coast | $198k | 6.49x | $43 | 78.7 | ✅ INCLUDE |
+| Newport Beach | $185k | 6.15x | $39 | 75.2 | ✅ INCLUDE |
+| Newport Beach | $178k | 5.67x | $37 | 71.4 | ✅ INCLUDE |
+| Coto de Caza | $178k | 5.57x | $38 | 70.5 | ✅ INCLUDE |
+
+**Bottom EXCLUDE Zones — Outside Client Service Areas:**
+
+| City | Income | ROAS | CPL | Score | Action |
+|---|---|---|---|---|---|
+| Santa Ana | $38k | 1.60x | $8 | 26.5 | ❌ EXCLUDE |
+| Santa Ana | $41k | 1.62x | $11 | 26.3 | ❌ EXCLUDE |
+
+---
+
+### 💡 Technical Highlights
+
+- **Composite Scoring:** Custom 0-100 Opportunity Score combining income level (40pts), ROAS efficiency (40pts), and CPL cost-effectiveness (20pts)
+- **Drive-Time Constraints:** Multi-ring buffer analysis eliminates zip codes outside realistic service radius — preventing wasted ad spend on unreachable audiences
+- **Client Validation:** All 4 client locations independently score in the top INCLUDE tier — confirming their business positioning is geographically optimal
+- **Actionable Output:** Final CSV exports directly into Meta Ads Manager format — zero manual translation required
+
+---
+
+### 💼 Business Application
+
+This system gives Orange AdTech clients a data-backed targeting decision instead of guesswork. For a nail spa in Newport Beach running Meta ads using this output:
+
+- **Spend budget only** in zip codes scoring above 70 (ROAS 5x+)
+- **Exclude automatically** zip codes scoring below 30 (Santa Ana corridor)
+- **Constrain targeting** strictly to within the 30-minute drive-time service radius
+- **Prioritize** the Corona del Mar / Newport Beach corridor where households earn $178k–$198k and ROAS reaches 6.61x
+
+The result: higher ROAS, lower wasted spend, and a geo-intelligent targeting strategy that a client can see, understand, and trust.
+
+---
+
+### 📁 Data Sources
+- US Census Bureau TIGER/Line Shapefiles 2023
+- American Community Survey (ACS) 5-Year Estimates 2023
+- Orange AdTech ad performance dataset (beauty/service vertical benchmarks)
