@@ -122,7 +122,7 @@ This map directly supports Meta advertising strategy by identifying premium zip 
 # -----------------------------------------------------------
  
 <br>
-### Nail Salon Density vs Income Zones — Ad Targeting Intelligence
+ Nail Salon Density vs Income Zones — Ad Targeting Intelligence
  
 **Technologies Used:** QGIS, OpenStreetMap, Overpass Turbo API, 
 Buffer Analysis, GeoJSON
