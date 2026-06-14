@@ -113,7 +113,10 @@ This map directly supports Meta advertising strategy by identifying premium zip 
 
 
 <br>
-<a id="project-2"></a>
+<a id="project-2">
+ 
+</a>
+
 # -----------------------------------------------------------
 # 📍 PROJECT 2: OC Competitor Location Mapping
 # -----------------------------------------------------------
