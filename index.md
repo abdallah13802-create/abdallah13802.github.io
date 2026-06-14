@@ -246,6 +246,7 @@ The geospatial analysis confirms strong positioning for 3 of the 4 client locati
 This project uses 6 layers working together in QGIS:
  
 <img width="308" height="237" alt="p3_layers" src="https://github.com/user-attachments/assets/303fcf2a-2582-49bc-a49a-9ec268184d61" />
+
 - **OC_Meta_Ads_Performance** — ad performance data by zip code
 - **Multi-ring buffer** — 15-mile service radius per client (5, 10, and 15-mile rings)
 - **Centroids** — client business location points
