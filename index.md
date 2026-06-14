@@ -223,9 +223,7 @@ a direct, actionable advertising strategy.
 ---
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# 🎯 PROJECT 3:<img width="308" height="237" alt="p3_layers" src="https://github.com/user-attachments/assets/424cb5ef-54fd-4293-aa87-f7358c99988c" />
- Meta Ads Geo-Intelligence System
-
+# 🎯 PROJECT 3: Meta Ads Geo-Intelligence System
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ## Project 3: Meta Ads Geo-Intelligence System
