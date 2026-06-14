@@ -207,7 +207,10 @@ a direct, actionable advertising strategy.
  
 ---
 <br>
-<a id="project-3"></a>
+<a id="project-3">
+ 
+</a>
+
 # -----------------------------------------------------------
 > # 🎯 PROJECT 3: Meta Ads Geo-Intelligence System
 # -----------------------------------------------------------
