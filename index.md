@@ -287,7 +287,7 @@ To improve accuracy, this analysis was upgraded to true network-based isochrones
 
 This refinement matters in practice: a zip code that falls within a 15-mile straight-line buffer might actually be a 25-minute drive away due to canyon roads or limited highway access — meaning it would have been incorrectly included as a viable targeting zone under the Phase 1 method. The isochrone model corrects for this, producing a more defensible service area boundary for Meta ad geographic targeting.
 
-<img width="795" height="640" alt="OC Drive-Time Isochrones" src="https://github.com/user-attachments/assets/90d16d74-f8a4-43c6-8b06-192dc351f7ec" />
+<img width="795" height="640" alt="Screenshot 2026-06-20 at 10 19 42" src="https://github.com/user-attachments/assets/ad6ebffc-d939-411f-827b-2ff0ddb31db9" />
 
 ---
 
