@@ -202,98 +202,109 @@ A nail spa running Meta ads in the Mission Viejo/Laguna Hills corridor would fac
 <a id="project-3-meta-ads-geo-intelligence-system"></a>
  
 # 🎯 PROJECT 3: Meta Ads Geo-Intelligence System
- 
+
 ## Ad Targeting Intelligence for Local Service Businesses
- 
-**Technologies Used:** QGIS, Field Calculator (QGIS), US Census Bureau API, TIGER/Line Shapefiles, Buffer Analysis, GeoJSON, CSV Export
- 
+
+**Technologies Used:** QGIS, Field Calculator (QGIS), US Census Bureau API, TIGER/Line Shapefiles, Buffer Analysis, Network Isochrone Analysis (OpenRouteService), GeoJSON, CSV Export
+
 ---
- 
+
 ### 🎯 Objective
- 
-Build a complete geospatial ad targeting intelligence system for 4 real local service business clients of Orange AdTech — located in Corona del Mar, Newport Beach, Coto de Caza, and Yorba Linda. Instead of guessing which zip codes to target on Meta, this system combines US Census income data, geographic buffer analysis, and campaign performance metrics to produce a ranked targeting list ready to paste directly into Meta Ads Manager.
- 
+
+Build a complete geospatial ad targeting intelligence system for 4 real local service business clients of Orange AdTech — located in Corona del Mar, Newport Beach, Coto de Caza, and Yorba Linda. Instead of guessing which zip codes to target on Meta, this system combines US Census income data, network-based drive-time analysis, and campaign performance metrics to produce a ranked targeting list ready to paste directly into Meta Ads Manager.
+
 > *"Don't guess where to run ads. Prove it with data."*
- 
+
 ---
- 
+
 ### 💼 Business Context
- 
+
 As founder of Orange AdTech, I serve 4 local service business clients operating in Orange County's highest-opportunity zones. Each client is located in a strong income corridor — Corona del Mar ($198k), Newport Beach ($168k–$185k), Coto de Caza ($178k), and Yorba Linda ($118k–$128k).
- 
-The buffer circles on the map represent each client's 15-mile service radius — the realistic zone within which their customers will travel. Buffer radius is used as a geographic proxy for service area, since QGIS distance-based buffers approximate but do not replicate true network drive-time routing. This constraint is critical: there is no point running Meta ads targeting zip codes far outside the client's service footprint if customers won't make the trip.
- 
+
+The service area zones on the map represent each client's real **5, 10, and 15-minute drive-time isochrones** — the realistic zone within which their customers will travel by road. This constraint is critical: there is no point running Meta ads targeting zip codes far outside the client's actual driving range if customers won't make the trip.
+
 The geospatial analysis confirms strong positioning for 3 of the 4 client locations — Corona del Mar, Newport Beach, and Coto de Caza all score in the top INCLUDE tier. Yorba Linda scores in the REVIEW tier, sitting well above the EXCLUDE threshold and still representing a viable targeting zone.
- 
+
 ---
- 
+
 ### 🗂️ Project Layer Stack
- 
-This project uses 6 layers working together in QGIS:
- 
+
+This project uses 7 layers working together in QGIS:
+
 <img width="308" height="237" alt="p3_layers" src="https://github.com/user-attachments/assets/303fcf2a-2582-49bc-a49a-9ec268184d61" />
+
 - **OC_Meta_Ads_Performance** — ad performance data by zip code
-- **Multi-ring buffer** — 5, 10, and 15-mile service radius rings per client
+- **OC_Drivetime_Isochrones** — 5, 10, and 15-minute network drive-time zones per client
 - **Centroids** — client business location points
 - **OC_Top_Targeting_Zones** — final exported targeting list
 - **tl_2023_us_zcta520** — OC zip code boundaries
 - **Google Satellite** — basemap
+
 ---
- 
+
 ### 📂 Data Sources
- 
+
 | Data | Source | Format |
 |---|---|---|
 | Zip code boundaries | US Census TIGER/Line 2023 | Shapefile |
 | Income demographics | ACS 5-Year Estimates 2023 | CSV |
 | Ad performance metrics | Orange AdTech performance dataset | CSV |
-| Service area zones | Buffer analysis (QGIS) | Vector polygon |
- 
+| Drive-time service zones | Network isochrone analysis (OpenRouteService) | GeoJSON / Vector polygon |
+
 ---
- 
+
 ### 🔄 Step-by-Step Process
- 
+
 #### Step 1 — Joining Performance Data to Map
- 
+
 Joined the ad performance CSV to the OC zip code shapefile using `ZIP_CODE` → `ZCTA5CE20` field matching. The attribute table below shows all performance metrics successfully attached to each zip code geometry — including CPL, ROAS, CTR, and composite Opportunity Score.
- 
+
 <img width="1496" height="878" alt="p3_attribute_table" src="https://github.com/user-attachments/assets/c51ff48e-9b4d-4bfd-a075-5aec06da68e7" />
+
 ---
- 
+
 #### Step 2 — Opportunity Score Heat Map
- 
+
 Applied Graduated symbology using the composite Opportunity Score field across 5 tiers. White = lowest opportunity (avoid), Dark Red = highest opportunity (prioritize). The score combines 3 variables:
- 
+
 - Income level (40 points)
 - ROAS efficiency (40 points)
 - CPL cost-effectiveness (20 points)
+
 Corona del Mar, Newport Beach, and Coto de Caza all fall inside the dark red high-opportunity zones, confirming strong geographic positioning for Meta ad targeting. Yorba Linda scores in the REVIEW tier — a viable zone above the exclusion threshold.
- 
+
 <img width="1180" height="642" alt="p3_opportunity_map" src="https://github.com/user-attachments/assets/fe0e0520-b7d7-4b2c-9981-578620bbbc4b" />
+
 ---
- 
-#### Step 3 — Service Area Buffer Analysis
- 
-Generated multi-ring buffer zones around each of the 4 client business locations. The circles represent 5, 10, and 15-mile service radii — constraining the Meta ad targeting to only zip codes realistically within the client's service area.
- 
-This is a critical business constraint: running ads outside the service radius wastes budget on audiences who will never convert into actual customers.
- 
-<img width="1208" height="670" alt="p3_buffer_map" src="https://github.com/user-attachments/assets/d0aaf324-81be-4eff-a46d-de4592bb91d0" />
+
+#### Step 3 — Service Area Analysis: From Buffer to Network Isochrone
+
+**Phase 1 — Distance Buffer (Initial Approach)**
+The first version of this project used multi-ring distance buffers (5, 10, and 15-mile radii) around each client location as a quick proxy for service area. This was fast to produce but had a known limitation: a straight-line distance buffer doesn't account for actual road networks, traffic patterns, or geographic barriers like canyons and highways that shape real driving behavior in Orange County.
+
+**Phase 2 — Network Drive-Time Isochrone (Refined Approach)**
+To improve accuracy, this analysis was upgraded to true network-based isochrones using the **OpenRouteService routing API**, which calculates real drive-time zones based on the actual OC road network rather than straight-line distance. Isochrones were generated for 5, 10, and 15-minute driving intervals around each of the 4 client locations, then imported into QGIS as GeoJSON, merged into a single layer (`OC_Drivetime_Isochrones`), and styled with graduated symbology to match the Opportunity Score map.
+
+This refinement matters in practice: a zip code that falls within a 15-mile straight-line buffer might actually be a 25-minute drive away due to canyon roads or limited highway access — meaning it would have been incorrectly included as a viable targeting zone under the Phase 1 method. The isochrone model corrects for this, producing a more defensible service area boundary for Meta ad geographic targeting.
+
+<img width="795" height="640" alt="OC Drive-Time Isochrones" src="https://github.com/user-attachments/assets/90d16d74-f8a4-43c6-8b06-192dc351f7ec" />
+
 ---
- 
+
 #### Step 4 — Actionable CSV Export
- 
+
 Exported the final ranked targeting list sorted by Opportunity Score descending. Each zip code is tagged META_ACTION: INCLUDE, REVIEW, or EXCLUDE — ready to paste directly into Meta Ads Manager geographic targeting settings.
- 
+
 The top INCLUDE zones align with the coastal client locations — validating that Corona del Mar, Newport Beach, and Coto de Caza are positioned in Orange County's highest-value advertising corridors.
- 
+
 <img width="944" height="673" alt="p3_csv_export" src="https://github.com/user-attachments/assets/552ffeee-16c2-4a45-ba64-7f95312889ef" />
+
 ---
- 
+
 ### 📊 Key Findings
- 
+
 **Top 5 INCLUDE Zones:**
- 
+
 | City | Income | ROAS | CPL | Score | Action |
 |---|---|---|---|---|---|
 | Corona del Mar | $198k | 6.61x | $42 | 79.7 | ✅ INCLUDE |
@@ -301,34 +312,36 @@ The top INCLUDE zones align with the coastal client locations — validating tha
 | Newport Beach | $185k | 6.15x | $39 | 75.2 | ✅ INCLUDE |
 | Newport Beach | $178k | 5.67x | $37 | 71.4 | ✅ INCLUDE |
 | Coto de Caza | $178k | 5.57x | $38 | 70.5 | ✅ INCLUDE |
- 
+
 **Bottom EXCLUDE Zones — Outside Client Service Areas:**
- 
+
 | City | Income | ROAS | CPL | Score | Action |
 |---|---|---|---|---|---|
 | Santa Ana | $38k | 1.60x | $8 | 26.5 | ❌ EXCLUDE |
 | Santa Ana | $41k | 1.62x | $11 | 26.3 | ❌ EXCLUDE |
- 
+
 ---
- 
+
 ### 💡 Technical Highlights
- 
+
 - **Composite Scoring:** Custom 0–100 Opportunity Score combining income level (40pts), ROAS efficiency (40pts), and CPL cost-effectiveness (20pts) — calculated using QGIS Field Calculator
-- **Service Area Constraints:** Multi-ring buffer analysis (5, 10, 15-mile radii) eliminates zip codes outside the realistic service footprint — preventing wasted ad spend on unreachable audiences
+- **Network Isochrone Analysis:** Replaced straight-line distance buffers with true drive-time service zones using the OpenRouteService routing API — accounting for real road networks rather than approximate radii
+- **Iterative Methodology:** Project was deliberately revisited and upgraded from a Phase 1 distance-buffer model to a Phase 2 network isochrone model, reflecting a continuous-improvement approach to spatial accuracy
 - **Client Validation:** 3 of 4 client locations independently score in the top INCLUDE tier; Yorba Linda scores in the REVIEW tier — all above the EXCLUDE threshold, confirming sound business positioning across the portfolio
 - **Actionable Output:** Final CSV exports directly into Meta Ads Manager format — zero manual translation required
+
 ---
- 
+
 ### 💼 Business Application
- 
+
 This system gives Orange AdTech clients a data-backed targeting decision instead of guesswork. For a nail spa in Newport Beach running Meta ads using this output:
- 
+
 - **Spend budget only** in zip codes scoring above 70 (ROAS 5x+)
 - **Exclude automatically** zip codes scoring below 30 (Santa Ana corridor)
-- **Constrain targeting** strictly to within the 15-mile service radius buffer
+- **Constrain targeting** strictly to within the 15-minute network drive-time isochrone
 - **Prioritize** the Corona del Mar / Newport Beach corridor where households earn $178k–$198k and ROAS reaches 6.61x
-The result: higher ROAS, lower wasted spend, and a geo-intelligent targeting strategy that a client can see, understand, and trust.
- 
+
+The result: higher ROAS, lower wasted spend, and a geo-intelligent targeting strategy — built on a methodology that was refined for accuracy — that a client can see, understand, and trust.
 ---
  
 ### 📁 Data Sources
